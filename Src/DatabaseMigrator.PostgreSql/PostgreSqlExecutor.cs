@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using DatabaseMigrator.Core;
 using Npgsql;
 
@@ -14,7 +13,7 @@ namespace DatabaseMigrator.PostgreSql
         public PostgreSqlExecutor(string connectionString)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException(nameof(connectionString));
 
             _currentConnection = new NpgsqlConnection(connectionString);
             _currentConnection.Open();
@@ -88,6 +87,7 @@ namespace DatabaseMigrator.PostgreSql
                 using (var command = _currentConnection.CreateCommand())
                 {
                     command.CommandText = fileContent;
+                    command.CommandTimeout = 300;
                     command.ExecuteNonQuery();
                 }
 

@@ -12,10 +12,5 @@
     <description>$description$</description>
     <copyright>Copyright 2015</copyright>
     <tags>Sql Database Version PostgreSql</tags>
-    <dependencies>
-      <dependency id="Npgsql" version="2.2.5" />
-      <dependency id="DatabaseMigrator.Core" version="1.0.0" />
-      <dependency id="DatabaseMigrator.PostgreSql" version="1.0.0" />
-    </dependencies>    
   </metadata>
 </package>
