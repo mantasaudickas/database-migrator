@@ -35,6 +35,7 @@ namespace DatabaseMigrator.Console
                 if (showHelp)
                 {
                     ShowHelp();
+                    Environment.ExitCode = -1;
                 }
                 else
                 {
@@ -52,6 +53,7 @@ namespace DatabaseMigrator.Console
             catch (Exception exc)
             {
                 System.Console.WriteLine(exc);
+                Environment.ExitCode = -2;
             }
 
             if (System.Diagnostics.Debugger.IsAttached)
