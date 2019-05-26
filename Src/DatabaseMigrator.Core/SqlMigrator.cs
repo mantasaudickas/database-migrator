@@ -46,10 +46,11 @@ namespace DatabaseMigrator.Core
                     var version = GetFileVersion(file);
                     if (versions.Contains(version))
                         throw new NotSupportedException("Duplicated version: " + version);
+                    versions.Add(version);
                 }
 
                 int currentVersion = _sqlExecutor.GetCurrentVersion(directory.Name);
-                _logger.Info("Current version: {0}", currentVersion);
+                _logger.Info("Current database version: {0}", currentVersion);
 
                 for (int i = currentVersion; i < files.Count; ++i)
                 {
@@ -58,6 +59,8 @@ namespace DatabaseMigrator.Core
                     _logger.Info("Processing file: {0}", file.Name);
 
                     var version = GetFileVersion(file);
+                    _logger.Info("Resolved file version: {0}", version);
+
                     string content = File.ReadAllText(file.FullName);
 
                     using (var transaction = _sqlExecutor.StartTransaction())

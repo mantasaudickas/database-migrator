@@ -15,6 +15,8 @@ namespace DatabaseMigrator.Console
                 //"Server=localhost;Database=DatabaseManager;User Id=admin;Password=admin"
 
                 bool test = false;
+                bool debug = false;
+                bool trace = false;
                 bool showHelp = false;
                 if (args == null || args.Length < 2)
                 {
@@ -22,13 +24,25 @@ namespace DatabaseMigrator.Console
                 }
                 else if (args.Length > 2)
                 {
-                    if (string.Compare(args[2].Trim(), "-test", StringComparison.InvariantCultureIgnoreCase) != 0)
+                    for (var i = 2; i < args.Length; i++)
                     {
-                        showHelp = true;
-                    }
-                    else
-                    {
-                        test = true;
+                        var arg = args[i].Trim();
+                        if (string.Compare(arg, "-test", StringComparison.InvariantCultureIgnoreCase) == 0)
+                        {
+                            test = true;
+                        }
+                        else if (string.Compare(arg, "-debug", StringComparison.InvariantCultureIgnoreCase) == 0)
+                        {
+                            debug = true;
+                        }
+                        else if (string.Compare(arg, "-trace", StringComparison.InvariantCultureIgnoreCase) == 0)
+                        {
+                            trace = true;
+                        }
+                        else
+                        {
+                            showHelp = true;
+                        }
                     }
                 }
 
@@ -40,7 +54,7 @@ namespace DatabaseMigrator.Console
                 else
                 {
                     var parameters = new SqlMigratorParameters(new DirectoryInfo(args[0]));
-                    using (var executor = new PostgreSqlExecutor(args[1]))
+                    using (var executor = new PostgreSqlExecutor(args[1], debug, trace))
                     {
                         var migrator = new SqlMigrator(new ConsoleLogger(), executor);
                         if (test)
@@ -76,6 +90,8 @@ namespace DatabaseMigrator.Console
             System.Console.WriteLine(
                 "<connectionString> - required argument, specifies connection string to server and database");
             System.Console.WriteLine("-test - optional argument, used when testing scripts, transaction rolled back at the end");
+            System.Console.WriteLine("-debug - optional argument, enables debug logger");
+            System.Console.WriteLine("-trace - optional argument, enables trace logger");
             System.Console.WriteLine("");
             System.Console.WriteLine("NOTE: argument order is important");
         }
