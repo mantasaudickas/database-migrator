@@ -1,4 +1,6 @@
-packages/**/*
+publish/
+packages/
+.vs/
 
 #ignore thumbnails created by windows
 Thumbs.db

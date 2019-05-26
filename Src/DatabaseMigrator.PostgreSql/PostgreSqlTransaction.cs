@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using DatabaseMigrator.Core;
 using Npgsql;
 
@@ -25,7 +26,10 @@ namespace DatabaseMigrator.PostgreSql
             if (_transaction != null)
             {
                 if (!_committed)
+                {
                     _transaction.Rollback();
+                    Console.WriteLine("Dispose: Transaction rolled-back");
+                }
 
                 _transaction.Dispose();
                 _transaction = null;
@@ -35,11 +39,15 @@ namespace DatabaseMigrator.PostgreSql
         public void Commit()
         {
             if (_markedForRollback)
+            {
+                Console.WriteLine("Commit: Transaction marked for rollback, commit not possible.");
                 return;
+            }
 
             if (_transaction != null)
             {
                 _transaction.Commit();
+                Console.WriteLine("Commit: Transaction committed");
             }
             _committed = true;
         }

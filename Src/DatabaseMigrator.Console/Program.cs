@@ -44,9 +44,14 @@ namespace DatabaseMigrator.Console
                     {
                         var migrator = new SqlMigrator(new ConsoleLogger(), executor);
                         if (test)
+                        {
+                            System.Console.WriteLine("Starting database migration test...");
                             migrator.Test(parameters);
+                        }
                         else
+                        {
                             migrator.Execute(parameters);
+                        }
                     }
                 }
             }
