@@ -5,8 +5,6 @@
       <TargetFramework>net472</TargetFramework>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
       <PublishSingleFile>true</PublishSingleFile>
-      <PublishTrimmed>true</PublishTrimmed>
-      <PublishReadyToRun>true</PublishReadyToRun>
 
       <RootNamespace>DatabaseMigrator.Console</RootNamespace>
 
@@ -15,7 +13,7 @@
       <AssemblyDescription>Database version manager Console library.</AssemblyDescription>
       <AssemblyProduct>DatabaseMigrator.Console</AssemblyProduct>
       
-      <Version>2.0.0</Version>
+      <Version>2.0.2</Version>
       <AssemblyVersion>2.0.0.0</AssemblyVersion>
       <FileVersion>2.0.0.0</FileVersion>
 

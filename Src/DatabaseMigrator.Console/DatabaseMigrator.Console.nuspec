@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DatabaseMigrator.Console</id>
+    <version>$version$</version>
+    <title>DatabaseMigrator.Console</title>
+    <authors>Mantas Audickas</authors>
+    <owners>Mantas Audickas</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/mantasaudickas/database-migrator</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Database version manager. Library maintains database version table. Change scripts with version numbers are placed in defined version subfolders</description>
+    <copyright>Copyright 2020</copyright>
+    <tags>Sql Database Version PostgreSql</tags>
+  </metadata>
+  <files>
+    <file src="bin\Debug\net472\win-x64\*.*" target="lib\net472" exclude="**\*.exe" />
+  </files>  
+</package>

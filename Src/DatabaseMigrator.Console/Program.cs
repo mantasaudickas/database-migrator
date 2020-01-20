@@ -87,8 +87,7 @@ namespace DatabaseMigrator.Console
             System.Console.WriteLine("Usage: DatabaseMigrator.Console.exe <scriptFolder> <connectionString> [-test]");
             System.Console.WriteLine("");
             System.Console.WriteLine("<scriptFolder> - required argument, specifies root script folder");
-            System.Console.WriteLine(
-                "<connectionString> - required argument, specifies connection string to server and database");
+            System.Console.WriteLine("<connectionString> - required argument, specifies connection string to server and database");
             System.Console.WriteLine("-test - optional argument, used when testing scripts, transaction rolled back at the end");
             System.Console.WriteLine("-debug - optional argument, enables debug logger");
             System.Console.WriteLine("-trace - optional argument, enables trace logger");
