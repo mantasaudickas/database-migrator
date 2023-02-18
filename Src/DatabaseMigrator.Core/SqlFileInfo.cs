@@ -1,9 +1,8 @@
 ﻿using System.IO;
 
-namespace DatabaseMigrator.Core
+namespace DatabaseMigrator.Core;
+
+public class SqlFileInfo
 {
-    public class SqlFileInfo
-    {
-        public FileInfo File { get; set; }
-    }
+    public FileInfo File { get; set; }
 }

@@ -2,105 +2,113 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace DatabaseMigrator.Core
+namespace DatabaseMigrator.Core;
+
+public class SqlMigrator
 {
-    public class SqlMigrator
+    private readonly IDatabaseMigratorLogger _logger;
+    private readonly ISqlExecutor _sqlExecutor;
+    private readonly string _identity;
+
+    public SqlMigrator(IDatabaseMigratorLogger logger, ISqlExecutor sqlExecutor, string identity)
     {
-        private readonly IDatabaseMigratorLogger _logger;
-        private readonly ISqlExecutor _sqlExecutor;
+        _logger = logger;
+        _sqlExecutor = sqlExecutor;
+        _identity = identity;
+    }
 
-        public SqlMigrator(IDatabaseMigratorLogger logger, ISqlExecutor sqlExecutor)
+    public void Execute(SqlMigratorParameters parameters)
+    {
+        var root = parameters.RootDirectory;
+        if (root == null)
+            throw new NullReferenceException("parameters.RootDirectory");
+
+        if (!root.Exists)
+            throw new FileNotFoundException("parameters.RootDirectory", root.FullName);
+
+        var initialized = _sqlExecutor.Initialize();
+        if (!initialized)
+            throw new Exception("Unable to initialize database version");
+
+        // _logger.Info("Searching script folders in: {0}", root.FullName);
+        var directories = new List<DirectoryInfo>(root.GetDirectories());
+        directories.Sort((d1, d2) => string.Compare(d1.FullName, d2.FullName, StringComparison.OrdinalIgnoreCase));
+        // _logger.Info("Found {0} folders.", directories.Count);
+
+        foreach (var directory in directories)
         {
-            _logger = logger;
-            _sqlExecutor = sqlExecutor;
-        }
+            var files = new List<FileInfo>(directory.GetFiles("*.sql", SearchOption.TopDirectoryOnly));
+            files.Sort((f1, f2) => string.Compare(f1.Name, f2.Name, StringComparison.OrdinalIgnoreCase));
 
-        public void Execute(SqlMigratorParameters parameters)
-        {
-            var root = parameters.RootDirectory;
-            if (root == null)
-                throw new NullReferenceException("parameters.RootDirectory");
-
-            if (!root.Exists)
-                throw new FileNotFoundException("parameters.RootDirectory", root.FullName);
-
-            bool initialized = _sqlExecutor.Initialize();
-            if (!initialized)
-                throw new Exception("Unable to initialize database version");
-
-            _logger.Info("Searching script folders in: {0}", root.FullName);
-            var directories = new List<DirectoryInfo>(root.GetDirectories());
-            directories.Sort((d1, d2) => string.Compare(d1.FullName, d2.FullName, StringComparison.OrdinalIgnoreCase));
-            _logger.Info("Found {0} folders.", directories.Count);
-
-            foreach (var directory in directories)
+            var versions = new HashSet<int>();
+            foreach (var file in files)
             {
-                _logger.Info("Processing folder: {0}", directory.Name);
+                var version = GetFileVersion(file);
+                if (versions.Contains(version))
+                    throw new NotSupportedException("Duplicated version: " + version);
+                versions.Add(version);
+            }
 
-                var files = new List<FileInfo>(directory.GetFiles("*.sql", SearchOption.TopDirectoryOnly));
-                files.Sort((f1, f2) => string.Compare(f1.Name, f2.Name, StringComparison.OrdinalIgnoreCase));
+            var currentVersion = _sqlExecutor.GetCurrentVersion(directory.Name);
 
-                var versions = new HashSet<int>();
-                foreach (var file in files)
+            var reported = false;
+
+            for (var i = currentVersion; i < files.Count; ++i)
+            {
+                if (!reported)
                 {
-                    var version = GetFileVersion(file);
-                    if (versions.Contains(version))
-                        throw new NotSupportedException("Duplicated version: " + version);
-                    versions.Add(version);
+                    _logger.Info($"[{_identity}] Processing folder: {directory.Name}");
+                    _logger.Info($"[{_identity}] Current database version: {currentVersion}");
+                    reported = true;
                 }
 
-                int currentVersion = _sqlExecutor.GetCurrentVersion(directory.Name);
-                _logger.Info("Current database version: {0}", currentVersion);
+                var file = files[i];
 
-                for (int i = currentVersion; i < files.Count; ++i)
+                _logger.Info($"[{_identity}] Processing file: {file.Name}");
+
+                var version = GetFileVersion(file);
+                _logger.Info($"[{_identity}] Resolved file version: {version}");
+
+                string content = File.ReadAllText(file.FullName);
+
+                using (var transaction = _sqlExecutor.StartTransaction())
                 {
-                    var file = files[i];
-
-                    _logger.Info("Processing file: {0}", file.Name);
-
-                    var version = GetFileVersion(file);
-                    _logger.Info("Resolved file version: {0}", version);
-
-                    string content = File.ReadAllText(file.FullName);
-
-                    using (var transaction = _sqlExecutor.StartTransaction())
-                    {
-                        _sqlExecutor.Apply(file.FullName, content, directory.Name, version);
-                        transaction.Commit();
-                    }
-
-                    _logger.Info("File applied successfully");
+                    _sqlExecutor.Apply(file.FullName, content, directory.Name, version);
+                    transaction.Commit();
                 }
 
-                currentVersion = _sqlExecutor.GetCurrentVersion(directory.Name);
-                _logger.Info("Current version: {0}", currentVersion);
+                _logger.Info($"[{_identity}] File applied successfully");
             }
-        }
 
-        private int GetFileVersion(FileInfo file)
-        {
-            string fileName = file.Name;
-            int index = fileName.IndexOf(".", StringComparison.Ordinal);
-            if (index < 0)
-                throw new Exception("Unable to parse file version! File: " + file.FullName);
+            currentVersion = _sqlExecutor.GetCurrentVersion(directory.Name);
 
-            string versionPart = fileName.Substring(0, index);
-
-            int version;
-            if (!int.TryParse(versionPart, out version))
-                throw new Exception("Unable to parse file version! File: " + file.FullName);
-
-            if (version == 0)
-                throw new Exception("Unable to parse file version! File: " + file.FullName);
-            return version;
-        }
-
-        public void Test(SqlMigratorParameters parameters)
-        {
-            using (_sqlExecutor.StartTransaction())
+            if (reported)
             {
-                Execute(parameters);
+                _logger.Info($"[{_identity}] Current version: {currentVersion}");
             }
         }
+    }
+
+    private int GetFileVersion(FileInfo file)
+    {
+        string fileName = file.Name;
+        int index = fileName.IndexOf(".", StringComparison.Ordinal);
+        if (index < 0)
+            throw new Exception("Unable to parse file version! File: " + file.FullName);
+
+        string versionPart = fileName.Substring(0, index);
+
+        if (!int.TryParse(versionPart, out var version))
+            throw new Exception("Unable to parse file version! File: " + file.FullName);
+
+        if (version == 0)
+            throw new Exception("Unable to parse file version! File: " + file.FullName);
+        return version;
+    }
+
+    public void Test(SqlMigratorParameters parameters)
+    {
+        using var transaction = _sqlExecutor.StartTransaction();
+        Execute(parameters);
     }
 }

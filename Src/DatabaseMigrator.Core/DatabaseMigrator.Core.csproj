@@ -1,28 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DatabaseMigrator.Core</AssemblyName>
-        <RootNamespace>DatabaseMigrator.Core</RootNamespace>
-        <AssemblyTitle>DatabaseMigrator.Core</AssemblyTitle>
-        <AssemblyDescription>Database version manager core library.</AssemblyDescription>
-        <AssemblyProduct>DatabaseMigrator.Core</AssemblyProduct>
-        <Version>2.0.0</Version>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-        <FileVersion>2.0.0.0</FileVersion>
-        <LangVersion>latest</LangVersion>
-        <RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
-    
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>DatabaseMigrator.Core</AssemblyName>
+		<RootNamespace>DatabaseMigrator.Core</RootNamespace>
+		<AssemblyTitle>DatabaseMigrator.Core</AssemblyTitle>
+		<AssemblyDescription>Database version manager core library.</AssemblyDescription>
+		<AssemblyProduct>DatabaseMigrator.Core</AssemblyProduct>
+		<Version>3.0.0</Version>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<LangVersion>latest</LangVersion>
+		<RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.6.1" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+	</ItemGroup>
 </Project>

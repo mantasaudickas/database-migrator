@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-      <OutputType>Exe</OutputType>
-      <TargetFramework>net472</TargetFramework>
-      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-      <PublishSingleFile>true</PublishSingleFile>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net48</TargetFramework>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<PublishSingleFile>true</PublishSingleFile>
 
-      <RootNamespace>DatabaseMigrator.Console</RootNamespace>
+		<RootNamespace>DatabaseMigrator.Console</RootNamespace>
 
-      <AssemblyName>DatabaseMigrator.Console</AssemblyName>
-      <AssemblyTitle>DatabaseMigrator.Console</AssemblyTitle>
-      <AssemblyDescription>Database version manager Console library.</AssemblyDescription>
-      <AssemblyProduct>DatabaseMigrator.Console</AssemblyProduct>
+		<AssemblyName>DatabaseMigrator.Console</AssemblyName>
+		<AssemblyTitle>DatabaseMigrator.Console</AssemblyTitle>
+		<AssemblyDescription>Database version manager Console library.</AssemblyDescription>
+		<AssemblyProduct>DatabaseMigrator.Console</AssemblyProduct>
       
-      <Version>2.0.2</Version>
-      <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      <FileVersion>2.0.0.0</FileVersion>
+		<Version>2.0.2</Version>
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+		<FileVersion>2.0.0.0</FileVersion>
 
-      <LangVersion>latest</LangVersion>
-      <RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DatabaseMigrator.Core\DatabaseMigrator.Core.csproj" />
-    <ProjectReference Include="..\DatabaseMigrator.PostgreSql\DatabaseMigrator.PostgreSql.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DatabaseMigrator.Core\DatabaseMigrator.Core.csproj" />
+		<ProjectReference Include="..\DatabaseMigrator.PostgreSql\DatabaseMigrator.PostgreSql.csproj" />
+	</ItemGroup>
 </Project>

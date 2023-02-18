@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DatabaseMigrator.PostgreSql</AssemblyName>
-        <RootNamespace>DatabaseMigrator.PostgreSql</RootNamespace>
-        <AssemblyTitle>DatabaseMigrator.PostgreSql</AssemblyTitle>
-        <AssemblyDescription>Database version manager PostgreSql library.</AssemblyDescription>
-        <AssemblyProduct>DatabaseMigrator.PostgreSql</AssemblyProduct>
-        <Version>2.0.0</Version>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-        <FileVersion>2.0.0.0</FileVersion>
-        <LangVersion>latest</LangVersion>
-        <RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
-    
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>DatabaseMigrator.PostgreSql</AssemblyName>
+		<RootNamespace>DatabaseMigrator.PostgreSql</RootNamespace>
+		<AssemblyTitle>DatabaseMigrator.PostgreSql</AssemblyTitle>
+		<AssemblyDescription>Database version manager PostgreSql library.</AssemblyDescription>
+		<AssemblyProduct>DatabaseMigrator.PostgreSql</AssemblyProduct>
+		<Version>3.0.0</Version>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<LangVersion>latest</LangVersion>
+		<RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.6.1" />
-        <PackageReference Include="Npgsql" Version="4.1.2" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\DatabaseMigrator.Core\DatabaseMigrator.Core.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Npgsql" Version="6.0.2" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\DatabaseMigrator.Core\DatabaseMigrator.Core.csproj" />
+	</ItemGroup>
 </Project>

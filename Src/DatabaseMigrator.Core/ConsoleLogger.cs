@@ -1,17 +1,16 @@
 ﻿using System;
 
-namespace DatabaseMigrator.Core
-{
-    public interface IDatabaseMigratorLogger
-    {
-        void Info(string message, params object[] args);
-    }
+namespace DatabaseMigrator.Core;
 
-    public class ConsoleLogger : IDatabaseMigratorLogger
+public interface IDatabaseMigratorLogger
+{
+    void Info(string message, params object[] args);
+}
+
+public class ConsoleLogger : IDatabaseMigratorLogger
+{
+    public void Info(string message, params object[] args)
     {
-        public void Info(string message, params object[] args)
-        {
-            Console.WriteLine(message, args);
-        }
+        Console.WriteLine(message, args);
     }
 }
