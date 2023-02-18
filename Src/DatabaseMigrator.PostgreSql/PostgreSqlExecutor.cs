@@ -2,7 +2,6 @@
 using System.Data;
 using DatabaseMigrator.Core;
 using Npgsql;
-using Npgsql.Logging;
 
 namespace DatabaseMigrator.PostgreSql;
 
@@ -18,13 +17,13 @@ public class PostgreSqlExecutor : ISqlExecutor
 
         if (trace)
         {
-            NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, true, true);
-            NpgsqlLogManager.IsParameterLoggingEnabled = true;
+            //NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Trace, true, true);
+            //NpgsqlLogManager.IsParameterLoggingEnabled = true;
         }
         else if (debug)
         {
-            NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Debug, true, true);
-            NpgsqlLogManager.IsParameterLoggingEnabled = true;
+            //NpgsqlLogManager.Provider = new ConsoleLoggingProvider(NpgsqlLogLevel.Debug, true, true);
+            //NpgsqlLogManager.IsParameterLoggingEnabled = true;
         }
 
         _currentConnection = new NpgsqlConnection(connectionString);
