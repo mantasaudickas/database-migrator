@@ -7,9 +7,9 @@
 		<AssemblyTitle>DatabaseMigrator.PostgreSql</AssemblyTitle>
 		<AssemblyDescription>Database version manager PostgreSql library.</AssemblyDescription>
 		<AssemblyProduct>DatabaseMigrator.PostgreSql</AssemblyProduct>
-		<Version>4.0.0</Version>
-		<AssemblyVersion>4.0.0.0</AssemblyVersion>
-		<FileVersion>4.0.0.0</FileVersion>
+		<Version>8.0.0</Version>
+		<AssemblyVersion>8.0.0.0</AssemblyVersion>
+		<FileVersion>8.0.0.0</FileVersion>
 		<LangVersion>latest</LangVersion>
 		<RepositoryUrl>https://github.com/mantasaudickas/database-migrator</RepositoryUrl>
 
