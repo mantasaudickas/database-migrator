@@ -71,9 +71,11 @@ public class PostgreSqlExecutor : ISqlExecutor
 
     public int GetCurrentVersion(string scopeName)
     {
+        scopeName = scopeName.ToLowerInvariant();
+
         var currentVersion = 0;
         using var command = _currentConnection.CreateCommand();
-        command.CommandText = "SELECT MAX(Version) FROM \"Database\".\"Versions\" WHERE Scope = @Scope";
+        command.CommandText = "SELECT MAX(Version) FROM \"Database\".\"Versions\" WHERE lower(Scope) = @Scope";
 
         var scopeParameter = command.CreateParameter();
         scopeParameter.ParameterName = "@Scope";
